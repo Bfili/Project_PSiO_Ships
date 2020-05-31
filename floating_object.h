@@ -1,13 +1,12 @@
-#ifndef FLOATING_OBJECT_H
-#define FLOATING_OBJECT_H
+#pragma once
 
 
-class Floating_object
+class Floating_Object
 {
 public:
-    Floating_object();
+    Floating_Object();
     void test_fun(int test_nr);
-    int test;
+    int test();
 };
 
-#endif // FLOATING_OBJECT_H
+

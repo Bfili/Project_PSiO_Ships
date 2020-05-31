@@ -8,12 +8,17 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(800,1000), "Ships Game");
     window.setFramerateLimit(60);
-    //test
-    //test
-    //test
     sf::Event event;
+
+    //TEST AREA ---> delete this after testing
+
     Hero_Ship test_ship;
-    int test_nr = test_ship.test;
+    //Floating_object test_object;
+    int test_nr = test_ship.test(); // <-- test() is function from class Floating_object, not from Hero_Ship
+    test_ship.test_fun(test_nr); // <-- test_fun() is also not a member of Hero_Ship class
+
+    //END OF TEST AREA
+
     while(window.isOpen())
     {
         window.clear(sf::Color::Black);
@@ -25,8 +30,6 @@ int main()
                 std::cout << "Window has been closed successfully" << std::endl;
             }
         }
-
-        test_ship.test_fun(test_nr);
 
         window.display();
     }

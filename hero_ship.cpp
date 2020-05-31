@@ -1,6 +1,12 @@
-#include "hero_ship.h"
-
+#include <hero_ship.h>
+#include <floating_object.h>
 Hero_Ship::Hero_Ship()
 {
-    test = 2;
+
+}
+
+int Floating_Object::test()
+{
+    int numer = 2;
+    return numer;
 }
