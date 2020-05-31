@@ -14,4 +14,10 @@ CONFIG(debug, debug|release){
 
 
 SOURCES += \
+        floating_object.cpp \
+        hero_ship.cpp \
         main.cpp
+
+HEADERS += \
+    floating_object.h \
+    hero_ship.h

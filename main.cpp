@@ -1,6 +1,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <hero_ship.h>
+#include <floating_object.h>
 
 int main()
 {
@@ -10,6 +12,8 @@ int main()
     //test
     //test
     sf::Event event;
+    Hero_Ship test_ship;
+    int test_nr = test_ship.test;
     while(window.isOpen())
     {
         window.clear(sf::Color::Black);
@@ -18,9 +22,12 @@ int main()
             if(event.type == sf::Event::Closed)
             {
                 window.close();
-                std::cout << "okno zostalo zamkniete pomyslnie" << std::endl;
+                std::cout << "Window has been closed successfully" << std::endl;
             }
         }
+
+        test_ship.test_fun(test_nr);
+
         window.display();
     }
 
