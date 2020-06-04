@@ -22,6 +22,7 @@ private:
     const float ship_Width = 20.0;
     const float ship_Height = 80.0;     // test values, probably to be changed
     const float ship_Velocity = 10.0;
+    sf::Vector2f Velocity = {ship_Velocity, 0.0};
 };
 
 

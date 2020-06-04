@@ -11,7 +11,7 @@ int main()
     sf::Event event;
 
     //TEST AREA ---> delete this after testing
-
+    Floating_Object H_ship(400, 900);
 
     //END OF TEST AREA
 
@@ -26,7 +26,7 @@ int main()
                 std::cout << "Window has been closed successfully" << std::endl;
             }
         }
-
+        window.draw(H_ship);
         window.display();
     }
 
