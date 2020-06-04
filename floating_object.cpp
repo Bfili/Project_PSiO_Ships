@@ -13,3 +13,8 @@ void Floating_Object::draw(sf::RenderTarget& target, sf::RenderStates state) con
 {
     target.draw(this->ship, state);
 }
+
+void Floating_Object::update()
+{
+    this->ship.move(this->Velocity);
+}

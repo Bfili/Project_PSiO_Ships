@@ -26,6 +26,10 @@ int main()
                 std::cout << "Window has been closed successfully" << std::endl;
             }
         }
+
+        H_ship.update();
+
+        //DRAW AREA
         window.draw(H_ship);
         window.display();
     }
