@@ -12,7 +12,6 @@ int main()
 
     //TEST AREA ---> delete this after testing
 
-    Hero_Ship test_ship;
 
     //END OF TEST AREA
 
