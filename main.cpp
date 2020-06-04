@@ -13,9 +13,6 @@ int main()
     //TEST AREA ---> delete this after testing
 
     Hero_Ship test_ship;
-    //Floating_object test_object;
-    int test_nr = test_ship.test(); // <-- test() is function from class Floating_object, not from Hero_Ship
-    test_ship.test_fun(test_nr); // <-- test_fun() is also not a member of Hero_Ship class
 
     //END OF TEST AREA
 

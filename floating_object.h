@@ -1,12 +1,11 @@
 #pragma once
-
+#include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Floating_Object
 {
 public:
     Floating_Object();
-    void test_fun(int test_nr);
-    int test();
 };
 
 
