@@ -11,7 +11,7 @@ int main()
     sf::Event event;
 
     //TEST AREA ---> delete this after testing
-    Floating_Object H_ship(400, 900);
+    Hero_Ship H_ship(400, 900);
 
     //END OF TEST AREA
 
@@ -27,7 +27,7 @@ int main()
             }
         }
 
-        H_ship.update();
+        H_ship.hero_update();
 
         //DRAW AREA
         window.draw(H_ship);
