@@ -10,11 +10,12 @@ int main()
     window.setFramerateLimit(60);
     sf::Event event;
 
-    sf::Texture tekstura_hero_ship;
-    sf::Texture *tex_hero = &tekstura_hero_ship;
-    if(!tekstura_hero_ship.loadFromFile("../tekstury/hero_ship.png"))
+    sf::Texture texture_hero_ship;
+    sf::Texture *tex_hero = &texture_hero_ship;
+    if(!texture_hero_ship.loadFromFile("../tekstury/hero_ship.png"))
     {
         std::cerr << "Could not load texture hero_ship from file" << std::endl;
+        return 1;
     }
 
     //TEST AREA ---> delete this after testing

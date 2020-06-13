@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <vector>
 
 class Floating_Object : public sf::Sprite
 {
@@ -22,7 +23,6 @@ public:
 
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates state) const override; //override flag used for clarifying that I'm overriding SFML draw()
-
 };
 
 
