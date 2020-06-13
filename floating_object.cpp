@@ -5,7 +5,8 @@
 //{
 //    ship.setPosition(t_X, t_Y);
 //    ship.setSize(sf::Vector2f(this -> ship_Width, this->ship_Height));
-//    ship.setFillColor(sf::Color::Red); //to be replaced by texture
+//    //ship.setFillColor(sf::Color::Red); //to be replaced by texture
+//    ship.setTexture(tekstura);
 //    ship.setOrigin(ship_Width/2.0, ship_Height/2.0);
 //}
 

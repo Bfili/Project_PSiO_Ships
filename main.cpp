@@ -10,8 +10,15 @@ int main()
     window.setFramerateLimit(60);
     sf::Event event;
 
+    sf::Texture tekstura_hero_ship;
+    sf::Texture *tex_hero = &tekstura_hero_ship;
+    if(!tekstura_hero_ship.loadFromFile("../tekstury/hero_ship.png"))
+    {
+        std::cerr << "Could not load texture hero_ship from file" << std::endl;
+    }
+
     //TEST AREA ---> delete this after testing
-    Hero_Ship H_ship(400, 900);
+    Hero_Ship H_ship(400, 900, tex_hero);
 
     //END OF TEST AREA
 
