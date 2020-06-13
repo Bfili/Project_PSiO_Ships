@@ -25,6 +25,8 @@ int main()
     window.setFramerateLimit(60);
     sf::Event event;
 
+    //TEXTURES
+
     sf::Texture texture_hero_ship;
     sf::Texture *tex_hero = &texture_hero_ship;
     if(!texture_hero_ship.loadFromFile("../tekstury/hero_ship.png"))
@@ -40,10 +42,23 @@ int main()
         std::cerr << "Could not load texture barrel from file" << std::endl;
         return 1;
     }
-    //TEST AREA ---> delete this after testing
-    Hero_Ship H_ship(400, 900, tex_hero);
-    Barrel test_barrel(randomInt_pos(0, 800), randomInt_pos(0, 800), tex_bar);
 
+    sf::Texture texture_water;
+    //sf::Texture *tex_wat = &texture_water;
+    if(!texture_water.loadFromFile("../tekstury/water.png"))
+    {
+        std::cerr << "Could not load texture water from file" << std::endl;
+        return 1;
+    }
+
+    //TEST AREA ---> delete this after testing
+
+    Hero_Ship H_ship(400, 900, tex_hero);
+    Barrel test_barrel(randomInt_pos(0, 800), 50, tex_bar);
+    texture_water.setRepeated(true);
+    sf:: Sprite background;
+    background.setTexture(texture_water);
+    background.setTextureRect(sf::IntRect(0, 0, 800, 1000));
     //END OF TEST AREA
 
     while(window.isOpen())
@@ -61,6 +76,7 @@ int main()
         H_ship.hero_update();
         test_barrel.update();
         //DRAW AREA
+        window.draw(background);
         window.draw(test_barrel);
         window.draw(H_ship);
         window.display();

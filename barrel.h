@@ -10,5 +10,6 @@ public:
     ~Barrel() = default;
     const float barrel_height = 30;
     const float barrel_width = 30;
+    const float barrel_velocity = 3.0;
 
 };
