@@ -1,7 +1,7 @@
 #include <hero_ship.h>
 #include <floating_object.h>
 
-Hero_Ship::Hero_Ship(float t_X, float t_Y, const sf::Texture *texture)
+Hero_Ship::Hero_Ship(int t_X, int t_Y, const sf::Texture *texture)
 {
     ship.setPosition(t_X, t_Y);
     ship.setSize(sf::Vector2f(this -> ship_Width, this->ship_Height));

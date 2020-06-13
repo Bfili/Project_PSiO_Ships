@@ -1,9 +1,24 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <random>
 #include <iostream>
 #include <hero_ship.h>
 #include <floating_object.h>
+#include <barrel.h>
 
+int randomInt_pos(int min, int max) {
+    static
+    std::default_random_engine e{};
+    std::uniform_int_distribution<int> d{min, max};
+    if(d(e) < 200 && d(e) > 600)
+    {
+    return d(e);
+    }
+    else
+    {
+        randomInt_pos(min, max);
+    }
+}
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800,1000), "Ships Game");
@@ -18,8 +33,16 @@ int main()
         return 1;
     }
 
+    sf::Texture texture_barrel;
+    sf::Texture *tex_bar = &texture_barrel;
+    if(!texture_barrel.loadFromFile("../tekstury/barrel.png"))
+    {
+        std::cerr << "Could not load texture barrel from file" << std::endl;
+        return 1;
+    }
     //TEST AREA ---> delete this after testing
     Hero_Ship H_ship(400, 900, tex_hero);
+    Barrel test_barrel(randomInt_pos(0, 800), randomInt_pos(0, 800), tex_bar);
 
     //END OF TEST AREA
 
@@ -36,8 +59,9 @@ int main()
         }
 
         H_ship.hero_update();
-
+        test_barrel.update();
         //DRAW AREA
+        window.draw(test_barrel);
         window.draw(H_ship);
         window.display();
     }
