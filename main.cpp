@@ -51,14 +51,17 @@ int main()
         return 1;
     }
 
-    //TEST AREA ---> delete this after testing
-
-    Hero_Ship H_ship(400, 900, tex_hero);
-    Barrel test_barrel(randomInt_pos(0, 800), 50, tex_bar);
     texture_water.setRepeated(true);
     sf:: Sprite background;
     background.setTexture(texture_water);
     background.setTextureRect(sf::IntRect(0, 0, 800, 1000));
+
+
+    //TEST AREA ---> delete this after testing
+
+    Hero_Ship H_ship(400, 900, tex_hero);
+    Barrel test_barrel(randomInt_pos(0, 800), 50, tex_bar);
+
     //END OF TEST AREA
 
     while(window.isOpen())

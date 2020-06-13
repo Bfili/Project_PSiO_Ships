@@ -8,8 +8,8 @@ public:
     Barrel(float t_X, float t_Y, const sf::Texture *texture);
     Barrel() = delete;
     ~Barrel() = default;
-    const float barrel_height = 30;
-    const float barrel_width = 30;
+    const float barrel_height = 35;
+    const float barrel_width = 35;
     const float barrel_velocity = 3.0;
 
 };
