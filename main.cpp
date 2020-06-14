@@ -5,6 +5,7 @@
 #include <hero_ship.h>
 #include <floating_object.h>
 #include <barrel.h>
+#include <bullet.h>
 
 int randomInt_pos(int min, int max) {
     static
@@ -12,7 +13,7 @@ int randomInt_pos(int min, int max) {
     std::uniform_int_distribution<int> d{min, max};
     if(d(e) < 200 && d(e) > 600)
     {
-    return d(e);
+        return d(e);
     }
     else
     {
@@ -21,7 +22,7 @@ int randomInt_pos(int min, int max) {
 }
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800,1000), "Ships Game");
+    sf::RenderWindow window(sf::VideoMode(800,1000), "Ships Game", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
     sf::Event event;
 
@@ -51,6 +52,14 @@ int main()
         return 1;
     }
 
+    sf::Texture texture_bullet;
+    sf::Texture *tex_bul = &texture_bullet;
+    if(!texture_bullet.loadFromFile("../tekstury/bullet.png"))
+    {
+        std::cerr << "Could not load texture bullet from file" << std::endl;
+        return 1;
+    }
+
     texture_water.setRepeated(true);
     sf:: Sprite background;
     background.setTexture(texture_water);
@@ -61,6 +70,7 @@ int main()
 
     Hero_Ship H_ship(400, 900, tex_hero);
     Barrel test_barrel(randomInt_pos(0, 800), 50, tex_bar);
+    Bullet test_bullet(400, 50, tex_bul);
 
     //END OF TEST AREA
 
@@ -78,9 +88,11 @@ int main()
 
         H_ship.hero_update();
         test_barrel.update();
+        test_bullet.update();
         //DRAW AREA
         window.draw(background);
         window.draw(test_barrel);
+        window.draw(test_bullet);
         window.draw(H_ship);
         window.display();
     }

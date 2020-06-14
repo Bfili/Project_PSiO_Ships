@@ -16,9 +16,9 @@ public:
     float bottom();
     sf::RectangleShape ship;
 
-    const float ship_Width = 40.0;
-    const float ship_Height = 80.0;     // test values, probably to be changed
-    const float ship_Velocity = 3.0;
+    const float ship_width = 40.0;
+    const float ship_height = 80.0;     // test values, probably to be changed
+    const float ship_velocity = 3.0;
     //sf::Vector2f Velocity = {ship_Velocity, 0.0};
 
 private:

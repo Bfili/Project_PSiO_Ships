@@ -17,5 +17,5 @@ void Floating_Object::draw(sf::RenderTarget& target, sf::RenderStates state) con
 
 void Floating_Object::update()
 {
-    ship.move(0, ship_Velocity);
+    ship.move(0, ship_velocity);
 }

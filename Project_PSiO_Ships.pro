@@ -15,11 +15,13 @@ CONFIG(debug, debug|release){
 
 SOURCES += \
         barrel.cpp \
+        bullet.cpp \
         floating_object.cpp \
         hero_ship.cpp \
         main.cpp
 
 HEADERS += \
     barrel.h \
+    bullet.h \
     floating_object.h \
     hero_ship.h
