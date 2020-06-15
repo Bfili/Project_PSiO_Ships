@@ -70,7 +70,7 @@ int main()
 
     Hero_Ship H_ship(400, 900, tex_hero);
     Barrel test_barrel(randomInt_pos(0, 800), 50, tex_bar);
-    Bullet test_bullet(400, 50, tex_bul);
+    Bullet test_bullet(H_ship.getPosition().x/2, 750, tex_bul);
 
     //END OF TEST AREA
 
@@ -85,14 +85,21 @@ int main()
                 std::cout << "Window has been closed successfully" << std::endl;
             }
         }
-
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            std::cout << "test" << std::endl;
+            //test_bullet(H_ship.getPosition().x/2, 750, tex_bul);
+            test_bullet.bullet_update();
+            window.draw(test_bullet);
+        }
         H_ship.hero_update();
         test_barrel.update();
-        test_bullet.update();
+        test_bullet.bullet_update(/*H_ship.getPosition().x/2, 750, tex_bul*/);
         //DRAW AREA
+
+        window.draw(test_bullet);
         window.draw(background);
         window.draw(test_barrel);
-        window.draw(test_bullet);
         window.draw(H_ship);
         window.display();
     }
