@@ -28,8 +28,8 @@ int main()
 
     //TEST AREA ---> delete this after testing
 
-    Hero_Ship H_ship(400, 900/*, tex_hero*/);
-    Barrel test_barrel(randomInt_pos(0, 800), 50/*, tex_bar*/);
+    Hero_Ship H_ship(400, 900);
+    Barrel test_barrel(randomInt_pos(0, 800), 50);
 //    Bullet test_bullet(H_ship.getPosition().x/2, 750, tex_bul);
     std::unique_ptr<Bullet> ptr_bullet = std::make_unique<Bullet>(H_ship.getPosition().x/2, 750/*, tex_bul*/);
 
@@ -91,13 +91,14 @@ int main()
             //test_bullet(H_ship.getPosition().x/2, 750, tex_bul);
             //Bullet test_bullet(H_ship.getPosition().x/2, 750, tex_bul);
             ptr_bullet->bullet_update();
-            std::cout << ptr_bullet->bullet_width;
+            //std::cout << ptr_bullet->bullet_width;
             //test_bullet.bullet_update();
             window.draw(*ptr_bullet);
         }
         H_ship.hero_update();
         test_barrel.update();
         //test_bullet.bullet_update(/*H_ship.getPosition().x/2, 750, tex_bul*/);
+
         //DRAW AREA
 
         //window.draw(test_bullet);
