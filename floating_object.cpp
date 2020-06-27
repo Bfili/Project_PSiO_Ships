@@ -10,12 +10,12 @@
 //    ship.setOrigin(ship_Width/2.0, ship_Height/2.0);
 //}
 
-void Floating_Object::draw(sf::RenderTarget& target, sf::RenderStates state) const
-{
-    target.draw(this->ship, state);
-}
+//void Floating_Object::draw(sf::RenderTarget& target, sf::RenderStates state) const
+//{
+//    target.draw(this->ship, state);
+//}
 
 void Floating_Object::update()
 {
-    ship.move(0, ship_velocity);
+    move(0, ship_velocity);
 }

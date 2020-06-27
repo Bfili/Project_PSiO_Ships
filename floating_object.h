@@ -14,7 +14,7 @@ public:
     float right();
     float top();
     float bottom();
-    sf::RectangleShape ship;
+    //sf::RectangleShape ship;
 
     const float ship_width = 40.0;
     const float ship_height = 80.0;     // test values, probably to be changed
@@ -22,7 +22,7 @@ public:
     //sf::Vector2f Velocity = {ship_Velocity, 0.0};
 
 private:
-    void draw(sf::RenderTarget& target, sf::RenderStates state) const override; //override flag used for clarifying that I'm overriding SFML draw()
+    //void draw(sf::RenderTarget& target, sf::RenderStates state) const override; //override flag used for clarifying that I'm overriding SFML draw()
 };
 
 
