@@ -1,20 +1,19 @@
 #include "bullet.h"
 
-Bullet::Bullet(int t_X, int t_Y/*, const sf::Texture *texture*/)
+Bullet::Bullet(int t_X, int t_Y)
 {
     setTextureRect(sf::IntRect(0,0,bullet_width,bullet_height));
     setPosition(t_X, t_Y);
-    //setSize(sf::Vector2f(this -> bullet_width, this->bullet_height));
-    //setTexture(texture);
+
     setOrigin(bullet_width/2.0, bullet_height/2.0);
 }
 
-void Bullet :: bullet_update(/*int t_X, int t_Y, const sf::Texture *texture*/)
+void Bullet :: bullet_update()
 {
     move(0, -bullet_velocity);
 //    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 //    {
-//        Bullet testing_bullet(t_X, t_Y, texture);
+//        Bullet testing_bullet(t_X, t_Y);
 //        testing_bullet.move(0, -bullet_velocity);
 //        std::cout << "test" << std::endl;
 //    }
