@@ -61,6 +61,13 @@ int main()
         return 1;
     }
 
+    sf::Texture texture_enemy_ship;
+    if(!texture_enemy_ship.loadFromFile("../tekstury/enemy_ship1.png"))
+    {
+        std::cerr << "Could not load texture enemy_ship from file" << std::endl;
+        return 1;
+    }
+
     sf::Texture texture_barrel;
     if(!texture_barrel.loadFromFile("../tekstury/barrel.png"))
     {
@@ -86,6 +93,8 @@ int main()
 
     Hero_Ship H_ship(400, 900);
     H_ship.setTexture(texture_hero_ship);
+    Enemy_ship E_ship(250, 0);
+    E_ship.setTexture(texture_enemy_ship);
     std::vector<Barrel> vec_bar = barrels_vector();
     for(size_t i = 0; i<vec_bar.size(); i++)
     {
@@ -120,11 +129,14 @@ int main()
             if(vec_bar[i].was_intersected)
                 if(vec_bar[i].getGlobalBounds().intersects(H_ship.getGlobalBounds()))
                 {
-                    H_ship.hero_life = H_ship.hero_life-1;
+                    H_ship.hero_life = H_ship.hero_life--;
                     std::cout << "YOU'VE BEEN HIT!" << std::endl;
                     vec_bar[i].was_intersected = false;
                 }
         }
+        E_ship.update();
+
+
 
         if(H_ship.hero_life <= 0)
         {
@@ -139,6 +151,7 @@ int main()
         {
             window.draw(vec_bar[i]);
         }
+        window.draw(E_ship);
         window.draw(H_ship);
         window.display();
     }
