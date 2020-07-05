@@ -49,6 +49,8 @@ std::vector<Barrel> barrels_vector()
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800,1000), "Ships Game", sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow end_window(sf::VideoMode(800, 1000), "Ships Game", sf::Style::Titlebar | sf::Style::Close);
+    end_window.setFramerateLimit(60);
     window.setFramerateLimit(60);
     sf::Event event;
 
@@ -141,6 +143,7 @@ int main()
         if(H_ship.hero_life <= 0)
         {
             window.close();
+            end_window.display();
             std::cout << "YOU LOST!" << std::endl;
         }
 
