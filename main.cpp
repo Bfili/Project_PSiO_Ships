@@ -49,8 +49,6 @@ std::vector<Barrel> barrels_vector()
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800,1000), "Ships Game", sf::Style::Titlebar | sf::Style::Close);
-    sf::RenderWindow end_window(sf::VideoMode(800, 1000), "Ships Game", sf::Style::Titlebar | sf::Style::Close);
-    end_window.setFramerateLimit(60);
     window.setFramerateLimit(60);
     sf::Event event;
 
@@ -136,14 +134,18 @@ int main()
                     vec_bar[i].was_intersected = false;
                 }
         }
-        E_ship.update();
 
+        E_ship.update();
+        if(H_ship.getGlobalBounds().intersects(E_ship.getGlobalBounds()))
+        {
+            std::cout << "YOU'VE CRASHED WITH ENEMY SHIP!" << std::endl;
+            H_ship.hero_life = 0;
+        }
 
 
         if(H_ship.hero_life <= 0)
         {
             window.close();
-            end_window.display();
             std::cout << "YOU LOST!" << std::endl;
         }
 
