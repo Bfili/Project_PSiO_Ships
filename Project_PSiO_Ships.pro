@@ -16,6 +16,7 @@ CONFIG(debug, debug|release){
 SOURCES += \
         barrel.cpp \
         bullet.cpp \
+        enemy_ship.cpp \
         floating_object.cpp \
         hero_ship.cpp \
         main.cpp
@@ -23,5 +24,6 @@ SOURCES += \
 HEADERS += \
     barrel.h \
     bullet.h \
+    enemy_ship.h \
     floating_object.h \
     hero_ship.h

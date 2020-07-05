@@ -6,6 +6,7 @@
 #include <floating_object.h>
 #include <barrel.h>
 #include <bullet.h>
+#include <enemy_ship.h>
 
 //TODO :
 //- tworzenie przeciwników i beczek (jeden kontener) i usuwanie ich, wraz z punktacją, ew. ogarnięcie menu
