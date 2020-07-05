@@ -6,3 +6,4 @@ Barrel::Barrel(float t_X, float t_Y)
     setPosition(t_X, t_Y);
     setOrigin(barrel_width/2.0, barrel_height/2.0);
 }
+

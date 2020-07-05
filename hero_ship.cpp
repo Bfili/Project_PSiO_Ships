@@ -12,10 +12,10 @@ void Hero_Ship::hero_update()
 {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        move(ship_velocity, 0);
+        move(hero_ship_velocity, 0);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        move(-ship_velocity, 0);
+        move(-hero_ship_velocity, 0);
     }
 }
