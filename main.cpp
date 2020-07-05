@@ -116,15 +116,19 @@ int main()
         for(size_t i = 0; i<vec_bar.size(); i++)
         {
             vec_bar[i].update();
-            if(vec_bar[i].getGlobalBounds().intersects(H_ship.getGlobalBounds()))
-            {
-                H_ship.hero_life = H_ship.hero_life-5;
-            }
+            if(vec_bar[i].was_intersected)
+                if(vec_bar[i].getGlobalBounds().intersects(H_ship.getGlobalBounds()))
+                {
+                    H_ship.hero_life = H_ship.hero_life-1;
+                    std::cout << "YOU'VE BEEN HIT!" << std::endl;
+                    vec_bar[i].was_intersected = false;
+                }
         }
 
         if(H_ship.hero_life <= 0)
         {
-            std::cout << "PRZEGRANA" << std::endl;
+            window.close();
+            std::cout << "YOU LOST!" << std::endl;
         }
 
         //DRAW AREA
