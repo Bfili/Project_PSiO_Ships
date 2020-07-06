@@ -123,6 +123,14 @@ int main()
         }
 
         H_ship.hero_update();
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+        {
+            Barrel barrel1(randomInt_pos(0, 800), -randomInt_pos(0, 1000));
+            barrel1.setTexture(texture_barrel);
+            vec_bar.emplace_back(barrel1);
+        }
+
         for(size_t i = 0; i<vec_bar.size(); i++)
         {
             vec_bar[i].update();
