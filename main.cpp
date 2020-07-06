@@ -96,6 +96,7 @@ int main()
     Enemy_ship E_ship(250, 0);
     E_ship.setTexture(texture_enemy_ship);
     std::vector<Barrel> vec_bar = barrels_vector();
+    std::vector<Bullet> vec_bul;
     for(size_t i = 0; i<vec_bar.size(); i++)
     {
         vec_bar[i].setTexture(texture_barrel);
@@ -124,13 +125,17 @@ int main()
 
         H_ship.hero_update();
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::R)) //to be replaced by another button, also need to add time limitation for creating bullets
         {
-            Barrel barrel1(randomInt_pos(0, 800), -randomInt_pos(0, 1000));
-            barrel1.setTexture(texture_barrel);
-            vec_bar.emplace_back(barrel1);
+            Bullet bullet(H_ship.getPosition().x, H_ship.getPosition().y);
+            bullet.setTexture(texture_bullet);
+            vec_bul.emplace_back(bullet);
         }
 
+        for(size_t i = 0; i<vec_bul.size(); i++)
+        {
+            vec_bul[i].bullet_update();
+        }
         for(size_t i = 0; i<vec_bar.size(); i++)
         {
             vec_bar[i].update();
@@ -163,6 +168,10 @@ int main()
         for(size_t i = 0; i<vec_bar.size(); i++)
         {
             window.draw(vec_bar[i]);
+        }
+        for(size_t i = 0; i<vec_bul.size(); i++)
+        {
+            window.draw(vec_bul[i]);
         }
         window.draw(E_ship);
         window.draw(H_ship);
