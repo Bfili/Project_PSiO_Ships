@@ -14,7 +14,7 @@ public:
     float bottom();
     const float ship_width = 40.0;
     const float ship_height = 80.0;     // test values, probably to be changed
-    /*const*/ float ship_velocity = 2.0; //const flag commented for future pause option
+    /*const*/ float ship_velocity = 5.0; //const flag commented for future pause option
     bool was_intersected = 1;
     int number_of_enemies;
     int number_of_barrels;  //For menu implementation

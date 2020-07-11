@@ -8,5 +8,6 @@ public:
     Enemy_ship(float t_X, float t_Y);
     const float enemy_ship_width = 32.0;
     const float enemy_ship_height = 75.0;
+    int enemy_ship_lives = 4;
 };
 

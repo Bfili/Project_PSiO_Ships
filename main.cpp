@@ -35,6 +35,14 @@ std::vector<Barrel> barrels_vector()
     }
     return vec_bar;
 }
+    std::vector<Enemy_ship> vec_ene;
+    for(int i = 0; i<10; i++) // 5 to be replaced, depends on difficulty level chosen
+    {
+        Enemy_ship enemy_ship(randomInt_pos(0, 800), -randomInt_pos(0, 1000));
+        vec_ene.emplace_back(enemy_ship);
+    }
+    return vec_ene;
+}
 //std::vector<Enemy_ship> enemies_vector()
 //{
 //    std::vector<Enemy_ship> vec_ene;
@@ -148,7 +156,15 @@ int main()
             vec_bul[i].bullet_update();
             if(vec_bul[i].was_intersected)
             {
-
+//                for(size_t i = 0; i<vec_bar.size();i++)
+//                {
+//                    if(vec_bar[i].getGlobalBounds().intersects(vec_bul[i].getGlobalBounds()))
+//                    {
+////                        vec_bar[i].barrel_lives--;
+////                        vec_bul[i].setScale(0,0);
+////                        vec_bul[i].was_intersected = 0;
+//                    }
+//                }
             }
         }
         for(size_t i = 0; i<vec_bar.size(); i++)
@@ -164,7 +180,25 @@ int main()
                 }
             if(vec_bar[i].getPosition().y+vec_bar[i].barrel_height>=1010)
             {
-                vec_bar[i].setPosition(randomInt_pos(0, 800), -randomInt_pos(0, 100));
+                vec_bar[i].setPosition(randomInt_pos(0, 800), -randomInt_pos(0, 400));
+                vec_bar[i].barrel_lives = 2;
+            }
+            for(size_t j = 0; j<vec_bul.size(); j++)
+            {
+                if(vec_bul[j].was_intersected)
+                {
+                    if(vec_bar[i].getGlobalBounds().intersects(vec_bul[j].getGlobalBounds()))
+                    {
+                        vec_bar[i].barrel_lives--;
+                        vec_bul[j].setScale(0,0);
+                        vec_bul[j].was_intersected = 0;
+                        if(vec_bar[i].barrel_lives<=0)
+                        {
+                            vec_bar[i].setScale(0,0);
+                            H_ship.points = H_ship.points + 100;
+                        }
+                    }
+                }
             }
         }
 
@@ -178,10 +212,33 @@ int main()
             }
             if(vec_ene[i].getPosition().y-vec_ene[i].enemy_ship_height>=1010)
             {
-                vec_ene[i].setPosition(randomInt_pos(0, 800), -randomInt_pos(0, 100));
+                vec_ene[i].setPosition(randomInt_pos(0, 800), -randomInt_pos(0, 400));
+                vec_ene[i].enemy_ship_lives = 4;
+            }
+            for(size_t j = 0; j<vec_bul.size(); j++)
+            {
+                if(vec_bul[j].was_intersected)
+                {
+                    if(vec_ene[i].getGlobalBounds().intersects(vec_bul[j].getGlobalBounds()))
+                    {
+                        vec_ene[i].enemy_ship_lives--;
+                        vec_bul[j].setScale(0,0);
+                        vec_bul[j].was_intersected = 0;
+                        if(vec_ene[i].enemy_ship_lives<=0)
+                        {
+                            vec_ene[i].setScale(0,0);
+                            H_ship.points = H_ship.points + 500;
+                        }
+                    }
+                }
             }
         }
-//        E_ship.update();
+
+        if(H_ship.points >= 3000) //value to be changed for other difficulties
+        {
+            window.close();
+            std::cout << "YOU WIN!" << std::endl;
+        }
 
         if(H_ship.hero_life <= 0)
         {

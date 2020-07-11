@@ -9,4 +9,5 @@ public:
     const float barrel_height = 35;
     const float barrel_width = 35;
     const float barrel_velocity = 3.0;
+    int barrel_lives = 2;
 };
