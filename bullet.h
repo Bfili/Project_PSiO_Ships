@@ -8,6 +8,6 @@ public:
 
     const float bullet_height = 15;
     const float bullet_width = 15;
-    const float bullet_velocity = 5.0;
+    const float bullet_velocity = 6.0;
     void bullet_update();
 };

@@ -10,12 +10,20 @@ Hero_Ship::Hero_Ship(int t_X, int t_Y)
 
 void Hero_Ship::hero_update()
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) /*&& getPosition().x - ship_width/2 > 0*/)
     {
         move(hero_ship_velocity, 0);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
         move(-hero_ship_velocity, 0);
+    }
+    if(getPosition().x - ship_width/2 < -10)
+    {
+        setPosition(20, 900);
+    }
+    if(getPosition().x + ship_width/2 > 810)
+    {
+        setPosition(780, 900);
     }
 }

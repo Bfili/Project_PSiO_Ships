@@ -52,6 +52,8 @@ int main()
     window.setFramerateLimit(60);
     sf::Event event;
 
+    sf::Clock clock;
+
     //TEXTURES
 
     sf::Texture texture_hero_ship;
@@ -93,16 +95,19 @@ int main()
 
     Hero_Ship H_ship(400, 900);
     H_ship.setTexture(texture_hero_ship);
-    Enemy_ship E_ship(250, 0);
-    E_ship.setTexture(texture_enemy_ship);
+//    Enemy_ship E_ship(250, 0);
+//    E_ship.setTexture(texture_enemy_ship);
+    std::vector<Enemy_ship> vec_ene = Enemy_ship_vector();
+    for(size_t i = 0; i<vec_ene.size(); i++)
+    {
+        vec_ene[i].setTexture(texture_enemy_ship);
+    }
     std::vector<Barrel> vec_bar = barrels_vector();
-    std::vector<Bullet> vec_bul;
     for(size_t i = 0; i<vec_bar.size(); i++)
     {
         vec_bar[i].setTexture(texture_barrel);
     }
-//    Bullet test_bullet(H_ship.getPosition().x/2, 750, tex_bul);
-//    std::unique_ptr<Bullet> ptr_bullet = std::make_unique<Bullet>(H_ship.getPosition().x/2, 750/*, tex_bul*/);
+    std::vector<Bullet> vec_bul;
 
     //END OF TEST AREA
 
@@ -123,18 +128,28 @@ int main()
             }
         }
 
+        float time = clock.getElapsedTime().asSeconds();
+
         H_ship.hero_update();
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::R)) //to be replaced by another button, also need to add time limitation for creating bullets
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) //to be replaced by another button, also need to add time limitation for creating bullets
         {
+            if(time >= 0.3)
+            {
             Bullet bullet(H_ship.getPosition().x, H_ship.getPosition().y);
             bullet.setTexture(texture_bullet);
             vec_bul.emplace_back(bullet);
+            clock.restart();
+            }
         }
 
         for(size_t i = 0; i<vec_bul.size(); i++)
         {
             vec_bul[i].bullet_update();
+            if(vec_bul[i].was_intersected)
+            {
+
+            }
         }
         for(size_t i = 0; i<vec_bar.size(); i++)
         {
@@ -142,19 +157,31 @@ int main()
             if(vec_bar[i].was_intersected)
                 if(vec_bar[i].getGlobalBounds().intersects(H_ship.getGlobalBounds()))
                 {
+                    vec_bar[i].setScale(0,0);
                     H_ship.hero_life = H_ship.hero_life--;
-                    std::cout << "YOU'VE BEEN HIT!" << std::endl;
+                    std::cout << "YOU'VE BEEN HIT BY A BARREL!" << std::endl;
                     vec_bar[i].was_intersected = false;
                 }
+            if(vec_bar[i].getPosition().y+vec_bar[i].barrel_height>=1010)
+            {
+                vec_bar[i].setPosition(randomInt_pos(0, 800), -randomInt_pos(0, 100));
+            }
         }
 
-        E_ship.update();
-        if(H_ship.getGlobalBounds().intersects(E_ship.getGlobalBounds()))
+        for(size_t i = 0; i<vec_ene.size(); i++)
         {
-            std::cout << "YOU'VE CRASHED WITH ENEMY SHIP!" << std::endl;
-            H_ship.hero_life = 0;
+            vec_ene[i].update();
+            if(H_ship.getGlobalBounds().intersects(vec_ene[i].getGlobalBounds()))
+            {
+                std::cout << "YOU'VE CRASHED WITH ENEMY SHIP!" << std::endl;
+                H_ship.hero_life = 0;
+            }
+            if(vec_ene[i].getPosition().y-vec_ene[i].enemy_ship_height>=1010)
+            {
+                vec_ene[i].setPosition(randomInt_pos(0, 800), -randomInt_pos(0, 100));
+            }
         }
-
+//        E_ship.update();
 
         if(H_ship.hero_life <= 0)
         {
@@ -173,7 +200,11 @@ int main()
         {
             window.draw(vec_bul[i]);
         }
-        window.draw(E_ship);
+        for(size_t i = 0; i<vec_ene.size(); i++)
+        {
+            window.draw(vec_ene[i]);
+        }
+        //window.draw(E_ship);
         window.draw(H_ship);
         window.display();
     }
