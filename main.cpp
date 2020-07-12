@@ -1,5 +1,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <random>
 #include <iostream>
 #include <sstream>
@@ -8,7 +9,6 @@
 #include <barrel.h>
 #include <bullet.h>
 #include <enemy_ship.h>
-#include <menu.h>
 
 //TODO :
 // - menu with difficulty settings
@@ -44,15 +44,22 @@ std::vector<Enemy_ship> Enemy_ship_vector()
     return vec_ene;
 }
 
+void main_music()
+{
+    sf::Music main_music;
+    if(!main_music.openFromFile("../tekstury/sea_music.wav"))
+    {
+        std::cerr << "Could not load main music from file" << std::endl;
+    }
+    main_music.play();
+}
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800,1000), "Ships Game", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
     sf::Event event;
     sf::Clock clock;
-
-    Menu menu(window.getSize().x, window.getSize().y);
-
     sf::Text points_text, lives_text, points, lives;
     sf::Font font;
     if(!font.loadFromFile("../tekstury/FFF_Tusj.ttf"))
@@ -145,46 +152,11 @@ int main()
         window.clear(sf::Color::Black);
         while(window.pollEvent(event))
         {
-//            if(event.type == sf::Event::Closed)
-//            {
-//                window.close();
-//                std::cout << "Window has been closed successfully" << std::endl;
-//            }
-            switch (event.type)
-                        {
-                        case sf::Event::KeyReleased:
-                            switch (event.key.code)
-                            {
-                            case sf::Keyboard::Up:
-                                menu.Switch_up();
-                                std::cout << "up" << std::endl;
-                                break;
-
-                            case sf::Keyboard::Down:
-                                menu.Switch_down();
-                                break;
-
-                            case sf::Keyboard::Return:
-                                switch (menu.Switch_pressed())
-                                {
-                                case 0:
-                                    std::cout << "Play button has been pressed" << std::endl;
-                                    break;
-                                case 1:
-                                    window.close();
-                                    break;
-                                }
-
-                                break;
-                            }
-
-                            break;
-                        case sf::Event::Closed:
-                            window.close();
-
-                            break;
-                        }
-
+            if(event.type == sf::Event::Closed)
+            {
+                window.close();
+                std::cout << "Window has been closed successfully" << std::endl;
+            }
         }
 
         float time = clock.getElapsedTime().asSeconds();
@@ -295,9 +267,6 @@ int main()
 
         //DRAW AREA
 
-
-        //window.clear();
-        menu.draw(window);
         window.draw(background);
         for(size_t i = 0; i<vec_bar.size(); i++)
         {
@@ -311,6 +280,7 @@ int main()
         {
             window.draw(vec_ene[i]);
         }
+//        main_music();
         window.draw(lives_text);
         window.draw(lives);
         window.draw(points_text);
