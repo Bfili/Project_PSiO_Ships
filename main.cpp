@@ -44,15 +44,15 @@ std::vector<Enemy_ship> Enemy_ship_vector()
     return vec_ene;
 }
 
-void main_music()
-{
-    sf::Music main_music;
-    if(!main_music.openFromFile("../tekstury/sea_music.wav"))
-    {
-        std::cerr << "Could not load main music from file" << std::endl;
-    }
-    main_music.play();
-}
+//void main_music()
+//{
+//    sf::Music main_music;
+//    if(!main_music.openFromFile("../tekstury/sea_music.wav"))
+//    {
+//        std::cerr << "Could not load main music from file" << std::endl;
+//    }
+//    main_music.play();
+//}
 
 int main()
 {
@@ -60,6 +60,9 @@ int main()
     window.setFramerateLimit(60);
     sf::Event event;
     sf::Clock clock;
+
+    sf::Music music;
+
     sf::Text points_text, lives_text, points, lives;
     sf::Font font;
     if(!font.loadFromFile("../tekstury/FFF_Tusj.ttf"))
