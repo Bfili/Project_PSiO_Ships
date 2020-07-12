@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <random>
 #include <iostream>
+#include <sstream>
 #include <hero_ship.h>
 #include <floating_object.h>
 #include <barrel.h>
@@ -9,7 +10,6 @@
 #include <enemy_ship.h>
 
 //TODO :
-//- tworzenie przeciwników i beczek (jeden kontener) i usuwanie ich, wraz z punktacją, ew. ogarnięcie menu
 // - menu with difficulty settings
 // - points description
 // - if possible - pause/saving
@@ -48,8 +48,25 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800,1000), "Ships Game", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
     sf::Event event;
-
     sf::Clock clock;
+    sf::Text points_text, lives_text;
+    sf::Font font;
+    if(!font.loadFromFile("../tekstury/FFF_Tusj.ttf"))
+    {
+        std::cerr << "Could not load FFF Tusj font from file" << std::endl;
+        return 1;
+    }
+    points_text.setFont(font);
+    points_text.setCharacterSize(30);
+    points_text.setFillColor(sf::Color::Black);
+    points_text.setPosition(10, 10);
+//    points_text.setString("testing");
+    lives_text.setFont(font);
+    lives_text.setCharacterSize(30);
+    lives_text.setFillColor(sf::Color::Black);
+    lives_text.setPosition(700, 10);
+    lives_text.setString("testing2");
+
 
     //TEXTURES
 
@@ -149,7 +166,7 @@ int main()
                 if(vec_bar[i].getGlobalBounds().intersects(H_ship.getGlobalBounds()))
                 {
                     vec_bar[i].setScale(0,0);
-                    H_ship.hero_life = H_ship.hero_life--;
+                    H_ship.hero_life--;
                     std::cout << "YOU'VE BEEN HIT BY A BARREL!" << std::endl;
                     vec_bar[i].was_intersected = false;
                 }
@@ -221,6 +238,14 @@ int main()
             std::cout << "YOU LOST!" << std::endl;
         }
 
+        std::ostringstream out_points;
+        out_points << static_cast<int>(H_ship.points);
+        points_text.setString(out_points.str());
+
+        std::ostringstream out_lives;
+        out_lives << static_cast<int>(H_ship.hero_life);
+        lives_text.setString(out_lives.str());
+
         //DRAW AREA
 
         window.draw(background);
@@ -236,7 +261,8 @@ int main()
         {
             window.draw(vec_ene[i]);
         }
-        //window.draw(E_ship);
+        window.draw(lives_text);
+        window.draw(points_text);
         window.draw(H_ship);
         window.display();
     }
