@@ -8,7 +8,6 @@
 #include <barrel.h>
 #include <bullet.h>
 #include <enemy_ship.h>
-
 //TODO :
 // - menu with difficulty settings
 // - points description

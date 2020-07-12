@@ -19,11 +19,13 @@ SOURCES += \
         enemy_ship.cpp \
         floating_object.cpp \
         hero_ship.cpp \
-        main.cpp
+        main.cpp \
+        menu.cpp
 
 HEADERS += \
     barrel.h \
     bullet.h \
     enemy_ship.h \
     floating_object.h \
-    hero_ship.h
+    hero_ship.h \
+    menu.h
