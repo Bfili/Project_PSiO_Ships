@@ -49,23 +49,31 @@ int main()
     window.setFramerateLimit(60);
     sf::Event event;
     sf::Clock clock;
-    sf::Text points_text, lives_text;
+    sf::Text points_text, lives_text, points, lives;
     sf::Font font;
     if(!font.loadFromFile("../tekstury/FFF_Tusj.ttf"))
     {
         std::cerr << "Could not load FFF Tusj font from file" << std::endl;
         return 1;
     }
+    points.setFont(font);
+    points.setCharacterSize(30);
+    points.setFillColor(sf::Color::Black);
+    points.setPosition(15, 40);
     points_text.setFont(font);
     points_text.setCharacterSize(30);
     points_text.setFillColor(sf::Color::Black);
-    points_text.setPosition(10, 10);
-//    points_text.setString("testing");
+    points_text.setString("Points:");
+    points_text.setPosition(15, 10);
+    lives.setFont(font);
+    lives.setCharacterSize(30);
+    lives.setFillColor(sf::Color::Black);
+    lives.setPosition(760, 40);
     lives_text.setFont(font);
     lives_text.setCharacterSize(30);
     lives_text.setFillColor(sf::Color::Black);
+    lives_text.setString("Lives:");
     lives_text.setPosition(700, 10);
-    lives_text.setString("testing2");
 
 
     //TEXTURES
@@ -240,11 +248,11 @@ int main()
 
         std::ostringstream out_points;
         out_points << static_cast<int>(H_ship.points);
-        points_text.setString(out_points.str());
+        points.setString(out_points.str());
 
         std::ostringstream out_lives;
         out_lives << static_cast<int>(H_ship.hero_life);
-        lives_text.setString(out_lives.str());
+        lives.setString(out_lives.str());
 
         //DRAW AREA
 
@@ -262,7 +270,9 @@ int main()
             window.draw(vec_ene[i]);
         }
         window.draw(lives_text);
+        window.draw(lives);
         window.draw(points_text);
+        window.draw(points);
         window.draw(H_ship);
         window.display();
     }
