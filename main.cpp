@@ -10,31 +10,30 @@
 
 //TODO :
 //- tworzenie przeciwników i beczek (jeden kontener) i usuwanie ich, wraz z punktacją, ew. ogarnięcie menu
+// - menu with difficulty settings
+// - points description
+// - if possible - pause/saving
+
+
 int randomInt_pos(int min, int max) {
     static
     std::default_random_engine e{};
     std::uniform_int_distribution<int> d{min, max};
-//    if(d(e) < min && d(e) > 600)
-//    {
-//        return d(e);
-//    }
-//    else
-//    {
-//        randomInt_pos(min, max);
-//    }
     return d(e);
 }
 
 std::vector<Barrel> barrels_vector()
 {
     std::vector<Barrel> vec_bar;
-    for(int i = 0; i<5; i++) // 5 to be replaced, depends on difficulty level chosen
+    for(int i = 0; i<10; i++) // 5 to be replaced, depends on difficulty level chosen
     {
         Barrel barrel(randomInt_pos(0, 800), -randomInt_pos(0, 1000));
         vec_bar.emplace_back(barrel);
     }
     return vec_bar;
 }
+std::vector<Enemy_ship> Enemy_ship_vector()
+{
     std::vector<Enemy_ship> vec_ene;
     for(int i = 0; i<10; i++) // 5 to be replaced, depends on difficulty level chosen
     {
@@ -43,16 +42,6 @@ std::vector<Barrel> barrels_vector()
     }
     return vec_ene;
 }
-//std::vector<Enemy_ship> enemies_vector()
-//{
-//    std::vector<Enemy_ship> vec_ene;
-//    for(int i = 0; i<5; i++) // 5 to be replaced, depends on difficulty level chosen
-//    {
-//        Enemy_ship enemy_ship(randomInt_pos(0, 800), randomInt_pos(0, 800));
-//        vec_ene.emplace_back(enemy_ship);
-//    }
-//    return vec_ene;
-//}
 
 int main()
 {
@@ -103,8 +92,6 @@ int main()
 
     Hero_Ship H_ship(400, 900);
     H_ship.setTexture(texture_hero_ship);
-//    Enemy_ship E_ship(250, 0);
-//    E_ship.setTexture(texture_enemy_ship);
     std::vector<Enemy_ship> vec_ene = Enemy_ship_vector();
     for(size_t i = 0; i<vec_ene.size(); i++)
     {
@@ -154,18 +141,6 @@ int main()
         for(size_t i = 0; i<vec_bul.size(); i++)
         {
             vec_bul[i].bullet_update();
-            if(vec_bul[i].was_intersected)
-            {
-//                for(size_t i = 0; i<vec_bar.size();i++)
-//                {
-//                    if(vec_bar[i].getGlobalBounds().intersects(vec_bul[i].getGlobalBounds()))
-//                    {
-////                        vec_bar[i].barrel_lives--;
-////                        vec_bul[i].setScale(0,0);
-////                        vec_bul[i].was_intersected = 0;
-//                    }
-//                }
-            }
         }
         for(size_t i = 0; i<vec_bar.size(); i++)
         {
