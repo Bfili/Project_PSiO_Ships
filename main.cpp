@@ -8,6 +8,8 @@
 #include <barrel.h>
 #include <bullet.h>
 #include <enemy_ship.h>
+#include <menu.h>
+
 //TODO :
 // - menu with difficulty settings
 // - points description
@@ -48,6 +50,9 @@ int main()
     window.setFramerateLimit(60);
     sf::Event event;
     sf::Clock clock;
+
+    Menu menu(window.getSize().x, window.getSize().y);
+
     sf::Text points_text, lives_text, points, lives;
     sf::Font font;
     if(!font.loadFromFile("../tekstury/FFF_Tusj.ttf"))
@@ -140,11 +145,46 @@ int main()
         window.clear(sf::Color::Black);
         while(window.pollEvent(event))
         {
-            if(event.type == sf::Event::Closed)
-            {
-                window.close();
-                std::cout << "Window has been closed successfully" << std::endl;
-            }
+//            if(event.type == sf::Event::Closed)
+//            {
+//                window.close();
+//                std::cout << "Window has been closed successfully" << std::endl;
+//            }
+            switch (event.type)
+                        {
+                        case sf::Event::KeyReleased:
+                            switch (event.key.code)
+                            {
+                            case sf::Keyboard::Up:
+                                menu.Switch_up();
+                                std::cout << "up" << std::endl;
+                                break;
+
+                            case sf::Keyboard::Down:
+                                menu.Switch_down();
+                                break;
+
+                            case sf::Keyboard::Return:
+                                switch (menu.Switch_pressed())
+                                {
+                                case 0:
+                                    std::cout << "Play button has been pressed" << std::endl;
+                                    break;
+                                case 1:
+                                    window.close();
+                                    break;
+                                }
+
+                                break;
+                            }
+
+                            break;
+                        case sf::Event::Closed:
+                            window.close();
+
+                            break;
+                        }
+
         }
 
         float time = clock.getElapsedTime().asSeconds();
@@ -255,6 +295,9 @@ int main()
 
         //DRAW AREA
 
+
+        //window.clear();
+        menu.draw(window);
         window.draw(background);
         for(size_t i = 0; i<vec_bar.size(); i++)
         {
