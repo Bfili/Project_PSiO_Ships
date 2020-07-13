@@ -10,12 +10,6 @@
 #include <bullet.h>
 #include <enemy_ship.h>
 
-//TODO :
-// - menu with difficulty settings
-// - points description
-// - if possible - pause/saving
-
-
 int randomInt_pos(int min, int max) {
     static
     std::default_random_engine e{};
@@ -26,7 +20,7 @@ int randomInt_pos(int min, int max) {
 std::vector<Barrel> barrels_vector()
 {
     std::vector<Barrel> vec_bar;
-    for(int i = 0; i<10; i++) // 5 to be replaced, depends on difficulty level chosen
+    for(int i = 0; i<10; i++)
     {
         Barrel barrel(randomInt_pos(0, 800), -randomInt_pos(0, 1000));
         vec_bar.emplace_back(barrel);
@@ -36,7 +30,7 @@ std::vector<Barrel> barrels_vector()
 std::vector<Enemy_ship> Enemy_ship_vector()
 {
     std::vector<Enemy_ship> vec_ene;
-    for(int i = 0; i<10; i++) // 5 to be replaced, depends on difficulty level chosen
+    for(int i = 0; i<10; i++)
     {
         Enemy_ship enemy_ship(randomInt_pos(0, 800), -randomInt_pos(0, 1000));
         vec_ene.emplace_back(enemy_ship);
@@ -49,8 +43,13 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800,1000), "Ships Game", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
     sf::Event event;
+
     sf::Clock clock;
     sf::Clock end_clock;
+
+    sf::View view;
+    view.reset((sf::FloatRect(0, 0, 800, 1000)));
+
     sf::Text points_text, lives_text, points, lives;
     sf::Font font;
     if(!font.loadFromFile("../tekstury/FFF_Tusj.ttf"))
@@ -59,20 +58,20 @@ int main()
         return 1;
     }
     points.setFont(font);
-    points.setCharacterSize(30);
+    points.setCharacterSize(32);
     points.setFillColor(sf::Color::Black);
     points.setPosition(15, 40);
     points_text.setFont(font);
-    points_text.setCharacterSize(30);
+    points_text.setCharacterSize(32);
     points_text.setFillColor(sf::Color::Black);
     points_text.setString("Points:");
     points_text.setPosition(15, 10);
     lives.setFont(font);
-    lives.setCharacterSize(30);
+    lives.setCharacterSize(32);
     lives.setFillColor(sf::Color::Black);
     lives.setPosition(760, 40);
     lives_text.setFont(font);
-    lives_text.setCharacterSize(30);
+    lives_text.setCharacterSize(32);
     lives_text.setFillColor(sf::Color::Black);
     lives_text.setString("Lives:");
     lives_text.setPosition(700, 10);
@@ -129,8 +128,6 @@ int main()
         return 1;
     }
 
-    //TEST AREA ---> delete this after testing
-
     Hero_Ship H_ship(400, 900);
     H_ship.setTexture(texture_hero_ship);
     std::vector<Enemy_ship> vec_ene = Enemy_ship_vector();
@@ -144,8 +141,6 @@ int main()
         vec_bar[i].setTexture(texture_barrel);
     }
     std::vector<Bullet> vec_bul;
-
-    //END OF TEST AREA
 
     texture_water.setRepeated(true);
     sf::Sprite background;
@@ -199,7 +194,7 @@ int main()
                 {
                     vec_bar[i].setScale(0,0);
                     H_ship.hero_life--;
-                    std::cout << "YOU'VE BEEN HIT BY A BARREL!" << std::endl;
+                    lives.setFillColor(sf::Color::Red);
                     vec_bar[i].was_intersected = false;
                 }
             if(vec_bar[i].getPosition().y+vec_bar[i].barrel_height>=1010)
@@ -220,6 +215,7 @@ int main()
                         {
                             vec_bar[i].setScale(0,0);
                             H_ship.points = H_ship.points + 100;
+                            points.setFillColor(sf::Color::Green);
                         }
                     }
                 }
@@ -231,7 +227,7 @@ int main()
             vec_ene[i].update();
             if(H_ship.getGlobalBounds().intersects(vec_ene[i].getGlobalBounds()))
             {
-                std::cout << "YOU'VE CRASHED WITH ENEMY SHIP!" << std::endl;
+                lives.setFillColor(sf::Color::Red);
                 H_ship.hero_life = 0;
             }
             if(vec_ene[i].getPosition().y-vec_ene[i].enemy_ship_height>=1010)
@@ -252,6 +248,7 @@ int main()
                         {
                             vec_ene[i].setScale(0,0);
                             H_ship.points = H_ship.points + 500;
+                            points.setFillColor(sf::Color::Green);
                         }
                     }
                 }
@@ -272,6 +269,8 @@ int main()
         lives.setString(out_lives.str());
 
         //DRAW AREA
+
+        window.setView(view);
 
         if(H_ship.hero_life>0 && H_ship.points < 3000)
         {
