@@ -44,25 +44,13 @@ std::vector<Enemy_ship> Enemy_ship_vector()
     return vec_ene;
 }
 
-//void main_music()
-//{
-//    sf::Music main_music;
-//    if(!main_music.openFromFile("../tekstury/sea_music.wav"))
-//    {
-//        std::cerr << "Could not load main music from file" << std::endl;
-//    }
-//    main_music.play();
-//}
-
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800,1000), "Ships Game", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
     sf::Event event;
     sf::Clock clock;
-
-    sf::Music music;
-
+    sf::Clock end_clock;
     sf::Text points_text, lives_text, points, lives;
     sf::Font font;
     if(!font.loadFromFile("../tekstury/FFF_Tusj.ttf"))
@@ -127,6 +115,20 @@ int main()
         return 1;
     }
 
+    sf::Texture texture_gameover;
+    if(!texture_gameover.loadFromFile("../tekstury/gameover.png"))
+    {
+        std::cerr << "Could not load texture gameover from file" << std::endl;
+        return 1;
+    }
+
+    sf::Texture texture_won;
+    if(!texture_won.loadFromFile("../tekstury/won.png"))
+    {
+        std::cerr << "Could not load texture won from file" << std::endl;
+        return 1;
+    }
+
     //TEST AREA ---> delete this after testing
 
     Hero_Ship H_ship(400, 900);
@@ -146,9 +148,17 @@ int main()
     //END OF TEST AREA
 
     texture_water.setRepeated(true);
-    sf:: Sprite background;
+    sf::Sprite background;
     background.setTexture(texture_water);
     background.setTextureRect(sf::IntRect(0, 0, 800, 1000));
+
+    sf::Sprite gameover;
+    gameover.setTexture(texture_gameover);
+    gameover.setTextureRect(sf::IntRect(0,0,800,1000));
+
+    sf::Sprite won;
+    won.setTexture(texture_won);
+    won.setTextureRect(sf::IntRect(0,0,800,1000));
 
     while(window.isOpen())
     {
@@ -166,7 +176,7 @@ int main()
 
         H_ship.hero_update();
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) //to be replaced by another button, also need to add time limitation for creating bullets
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
             if(time >= 0.3)
             {
@@ -248,16 +258,9 @@ int main()
             }
         }
 
-        if(H_ship.points >= 3000) //value to be changed for other difficulties
+        if(end_clock.getElapsedTime().asSeconds()>=10)
         {
-            window.close();
-            std::cout << "YOU WIN!" << std::endl;
-        }
-
-        if(H_ship.hero_life <= 0)
-        {
-            window.close();
-            std::cout << "YOU LOST!" << std::endl;
+            end_clock.restart();
         }
 
         std::ostringstream out_points;
@@ -270,25 +273,51 @@ int main()
 
         //DRAW AREA
 
-        window.draw(background);
-        for(size_t i = 0; i<vec_bar.size(); i++)
+        if(H_ship.hero_life>0 && H_ship.points < 3000)
         {
-            window.draw(vec_bar[i]);
+            window.draw(background);
+            for(size_t i = 0; i<vec_bar.size(); i++)
+            {
+                window.draw(vec_bar[i]);
+            }
+            for(size_t i = 0; i<vec_bul.size(); i++)
+            {
+                window.draw(vec_bul[i]);
+            }
+            for(size_t i = 0; i<vec_ene.size(); i++)
+            {
+                window.draw(vec_ene[i]);
+            }
+            window.draw(lives_text);
+            window.draw(lives);
+            window.draw(points_text);
+            window.draw(points);
+            window.draw(H_ship);
         }
-        for(size_t i = 0; i<vec_bul.size(); i++)
+        else if(H_ship.points >= 3000 && H_ship.hero_life>0)
         {
-            window.draw(vec_bul[i]);
+            window.draw(won);
+            window.draw(lives_text);
+            window.draw(lives);
+            window.draw(points_text);
+            window.draw(points);
+            if(end_clock.getElapsedTime().asSeconds()>7)
+            {
+                window.close();
+            }
         }
-        for(size_t i = 0; i<vec_ene.size(); i++)
+        else
         {
-            window.draw(vec_ene[i]);
+            window.draw(gameover);
+            window.draw(lives_text);
+            window.draw(lives);
+            window.draw(points_text);
+            window.draw(points);
+            if(end_clock.getElapsedTime().asSeconds()>7)
+            {
+                window.close();
+            }
         }
-//        main_music();
-        window.draw(lives_text);
-        window.draw(lives);
-        window.draw(points_text);
-        window.draw(points);
-        window.draw(H_ship);
         window.display();
     }
 
